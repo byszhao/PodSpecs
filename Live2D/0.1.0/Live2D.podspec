@@ -30,13 +30,49 @@ TODO: Add long description of the pod here.
 
   s.ios.deployment_target = '10.0'
 
-  s.source_files = 'Live2D/Classes/**/*'
+  s.subspec 'Core' do |sp|
+    sp.source_files = 'Live2D/CubismSdkForNative/Core/include/**/*.{h,hpp,c,cpp,m,mm}'
+    sp.ios.vendored_library = 'Live2D/CubismSdkForNative/Core/lib/ios/Release-iphoneos/libLive2DCubismCore.a'
+    sp.libraries = 'c++'
+  end
+  
+  s.subspec 'FrameworkCore' do |sp|
+#    sp.public_header_files = 'Live2D/CubismSdkForNative/Framework/src/Type/*.{h,hpp}',
+#                             'Live2D/CubismSdkForNative/Framework/src/Id/*.{h,hpp}'
+    sp.private_header_files = 'Live2D/CubismSdkForNative/**/*.{h,hpp}'
+    sp.source_files = 'Live2D/CubismSdkForNative/Framework/src/**/*.{h,hpp,c,cpp,m,mm}'
+    sp.exclude_files = "Live2D/CubismSdkForNative/Framework/src/Rendering/**/*"
+#    sp.xcconfig = { 'USER_HEADER_SEARCH_PATHS' => '"$(SRCROOT)/Live2D/CubismSdkForNative/Framework/src/"' }
+    sp.requires_arc = false
+    sp.libraries = 'c++'
+  end
+  
+  s.subspec 'FrameworkMetal' do |sp|
+#    sp.public_header_files = 'Live2D/CubismSdkForNative/Framework/src/Rendering/Metal/**/*.{h,hpp}'
+    sp.private_header_files = 'Live2D/CubismSdkForNative/**/*.{h,hpp}'
+    sp.source_files = 'Live2D/CubismSdkForNative/Framework/src/Rendering/Metal/**/*.{h,hpp,c,cpp,m,mm}',
+    "Live2D/CubismSdkForNative/Framework/src/Rendering/*"
+    sp.requires_arc = false
+    sp.libraries = 'c++'
+  end
+  
+  s.subspec 'AppMetal' do |sp|
+    sp.private_header_files = 'Live2D/CubismSdkForNative/**/*.{h,hpp}'
+    sp.source_files = "Live2D/CubismSdkForNative/Samples/Metal/Demo/proj.ios.cmake/src/**/*.{h,hpp,c,cpp,m,mm}",
+                      "Live2D/CubismSdkForNative/Samples/Metal/thirdParty/stb/stb_image.h"
+    sp.exclude_files = "Live2D/CubismSdkForNative/Samples/Metal/Demo/proj.ios.cmake/src/AppDelegate.*",
+    "Live2D/CubismSdkForNative/Samples/Metal/Demo/proj.ios.cmake/src/ViewController.*",
+    "Live2D/CubismSdkForNative/Samples/Metal/Demo/proj.ios.cmake/src/LApp*",
+    "Live2D/CubismSdkForNative/Samples/Metal/Demo/proj.ios.cmake/src/main.*"
+    sp.requires_arc = false
+    sp.libraries = 'c++'
+  end
   
   # s.resource_bundles = {
   #   'Live2D' => ['Live2D/Assets/*.png']
   # }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
+  s.frameworks = 'UIKit', 'MetalKit'
   # s.dependency 'AFNetworking', '~> 2.3'
 end
