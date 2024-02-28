@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Live2D'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = 'A Live2D sdk for pod.'
 
 # This description is used to generate tags and improve search results.
@@ -22,11 +22,9 @@ TODO: Add long description of the pod here.
                        DESC
 
   s.homepage         = 'https://github.com/byszhao/Live2D'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'rain' => 'byszhao@gmail.com' }
   s.source           = { :git => 'https://github.com/byszhao/Live2D.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '10.0'
 
@@ -57,6 +55,7 @@ TODO: Add long description of the pod here.
   end
   
   s.subspec 'AppMetal' do |sp|
+    sp.public_header_files = 'Live2D/CubismSdkForNative/**/*.{h,hpp}'
     sp.private_header_files = 'Live2D/CubismSdkForNative/**/*.{h,hpp}'
     sp.source_files = "Live2D/CubismSdkForNative/Samples/Metal/Demo/proj.ios.cmake/src/**/*.{h,hpp,c,cpp,m,mm}",
                       "Live2D/CubismSdkForNative/Samples/Metal/thirdParty/stb/stb_image.h"
